@@ -43,24 +43,6 @@ class BaseModel:
         """
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
-    def name(self, arg):
-        """
-        Sets the name attribute of the model instance
-
-        Args:
-            arg: The value to set as the new attribute
-        """
-        self.name = arg
-
-    def my_number(self, arg):
-        """
-        Sets the my_number attribute of the model instance
-
-        Args:
-            arg: The value to set to my_number attribute
-        """
-        self.my_number = arg
-
     def save(self):
         """ Updates the updated_at attribute """
         self.updated_at = datetime.now()
