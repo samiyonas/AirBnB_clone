@@ -31,6 +31,8 @@ class BaseModel:
                     self.created_at = datetime.fromisoformat(kwargs[key])
                 elif key == 'updated_at':
                     self.updated_at = datetime.fromisoformat(kwargs[key])
+                else:
+                    self.key = kwargs[key]
         else:
             self.id = str(uuid.uuid1())
             self.created_at = datetime.now()
