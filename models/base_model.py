@@ -23,7 +23,7 @@ class BaseModel:
             *args: Variable length argument list
             **kwargs: Arbitrary keyword arguments
         """
-        if kwargs:
+        if len(kwargs) > 0:
             for key, value in kwargs.items():
                 if key == 'id':
                     self.id = kwargs[key]
@@ -36,7 +36,7 @@ class BaseModel:
         else:
             self.id = str(uuid.uuid1())
             self.created_at = datetime.now()
-            self.updated_at = datetime.now()
+            self.updated_at = self.created_at
             models.storage.new(self)
 
     def __str__(self):
