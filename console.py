@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Command interpreter for the console """
 import cmd
+from datetime import datetime
 from models.base_model import BaseModel
 from models import storage
 
@@ -114,7 +115,11 @@ class HBNBCommand(cmd.Cmd):
         elif len(args) == 3:
             print("** value missing **")
         else:
-            setattr(all_objs[k], args[2], args[3])
+            if args[3].startswith('"') and args[3].endswith('"'):
+                args[3] = args[3][1:-1]
+            ojb = all_objs[k]
+            ojb.__dict__[args[2]] = args[3]
+            ojb.updated_at = datetime.now()
             storage.save()
 
     def do_quit(self, line):
