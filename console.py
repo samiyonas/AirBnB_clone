@@ -2,6 +2,7 @@
 """ Command interpreter for the console """
 import cmd
 from datetime import datetime
+import shlex
 from models.base_model import BaseModel
 from models import storage
 
@@ -25,9 +26,10 @@ class HBNBCommand(cmd.Cmd):
         elif line != "BaseModel":
             print("** class doesn't exist **")
         if line == "BaseModel":
-            my_model = BaseModel()
-            my_model.save()
+            tok = line + "()"
+            my_model = eval(tok)
             print(my_model.id)
+            storage.save()
 
     def do_show(self, line):
         """
