@@ -15,7 +15,6 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """
-
         Creates a new instance of BaseModel,
         saves it (to the JSON file)
         and prints the id
@@ -31,7 +30,6 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, line):
         """
-
         prints the string representation of an instance
         Based on the class name and id
         """
@@ -55,7 +53,6 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, line):
         """
-
         Deletes an instance based on the class name and id.
         Change is saved into the JSON file
         """
@@ -80,7 +77,6 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, line):
         """
-
         prints all string representation of all instances
         based or not on the class name
         """
@@ -88,12 +84,11 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         elif not line or line == "BaseModel":
             all_objs = storage.all()
-            l = [str(j) for i, j in all_objs.items()]
-            print(l)
+            obj = [str(j) for i, j in all_objs.items()]
+            print(obj)
 
     def do_update(self, line):
         """
-
         Updates an instance based on the class name
         and id by adding or updating attribute.
         Change is saved into JSON file.
@@ -121,6 +116,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             setattr(all_objs[k], args[2], args[3])
             storage.save()
+
     def do_quit(self, line):
         """Quit command to exit the program"""
         return True
