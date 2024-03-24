@@ -14,6 +14,12 @@ class HBNBCommand(cmd.Cmd):
         super().__init__()
 
     def do_create(self, line):
+        """
+
+        Creates a new instance of BaseModel,
+        saves it (to the JSON file)
+        and prints the id
+        """
         if not line:
             print("** class name missing **")
         elif line != "BaseModel":
@@ -24,6 +30,11 @@ class HBNBCommand(cmd.Cmd):
             print(my_model.id)
 
     def do_show(self, line):
+        """
+
+        prints the string representation of an instance
+        Based on the class name and id
+        """
         args = line.split()
         if len(args) < 1:
             print("** class name missing **")
@@ -43,6 +54,11 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def do_destroy(self, line):
+        """
+
+        Deletes an instance based on the class name and id.
+        Change is saved into the JSON file
+        """
         args = line.split()
         if len(args) < 1:
             print("** class name missing **")
@@ -63,6 +79,11 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def do_all(self, line):
+        """
+
+        prints all string representation of all instances
+        based or not on the class name
+        """
         if line and line != "BaseModel":
             print("** class doesn't exist **")
         elif not line or line == "BaseModel":
@@ -71,6 +92,12 @@ class HBNBCommand(cmd.Cmd):
             print(l)
 
     def do_update(self, line):
+        """
+
+        Updates an instance based on the class name
+        and id by adding or updating attribute.
+        Change is saved into JSON file.
+        """
         args = line.split()
         if len(args) == 0:
             print("** class name missing **")
