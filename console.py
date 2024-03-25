@@ -2,20 +2,13 @@
 """ Command interpreter for the console """
 import cmd
 from datetime import datetime
-import shlex
 from models.base_model import BaseModel
 from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
     """ Airbnb command line interpreter """
-    def __init__(self):
-        """ initializes the command instance """
-        self.prompt = "(hbnb) "
-        super().__init__(self)
-        stdin=None
-        stdout=None
-        self.completekey = "tab"
+    prompt = "(hbnb) "
 
     def do_create(self, line):
         """
@@ -138,5 +131,3 @@ class HBNBCommand(cmd.Cmd):
         pass
 
 
-if __name__ == "__main__":
-    HBNBCommand().cmdloop()
