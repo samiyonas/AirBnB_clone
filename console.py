@@ -13,7 +13,7 @@ class HBNBCommand(cmd.Cmd):
         """ initializes the command instance """
         self.prompt = '(hbnb) '
         self.completekey = 'tab'
-        super().__init__()
+        super().__init__(stdout=stdout, stdin=stdin)
 
     def do_create(self, line):
         """
