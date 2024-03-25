@@ -11,9 +11,7 @@ class HBNBCommand(cmd.Cmd):
     """ Airbnb command line interpreter """
     def __init__(self):
         """ initializes the command instance """
-        self.prompt = '(hbnb) '
-        self.completekey = 'tab'
-        super().__init__(stdout=stdout, stdin=stdin)
+        self.prompt = "(hbnb) "
 
     def do_create(self, line):
         """
