@@ -37,7 +37,7 @@ class HBNBCommand(cmd.Cmd):
                     line = fur_arg[0] + ' ' + arg[0] + ' ' + more_arg[0]
                 else:
                     pun = more_arg[0].split(',')
-                    line = f"{fur_ar[0]} {arg[0]} {pun[0]} {pun[1]} {pun[3]}"
+                    line = f"{fur_ar[0]} {arg[0]} {pun[0]} {pun[1]} {pun[2]}"
         return line
 
     def default(self, line):
