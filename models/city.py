@@ -12,7 +12,3 @@ class City(BaseModel):
     """
     state_id = ""
     name = ""
-
-    def __init_(self):
-        """ initializes City class """
-        super().__init__(self)

@@ -10,7 +10,3 @@ class Amenity(BaseModel):
         name (str): name
     """
     name = ""
-
-    def __init__(self):
-        """ initializes Amenity class """
-        super().__init__(self)
