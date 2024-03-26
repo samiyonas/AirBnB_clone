@@ -32,9 +32,13 @@ class HBNBCommand(cmd.Cmd):
             arg = line.split('.')
             fur_arg = arg[1].split('(')
             more_arg = fur_arg[1].split(')')
-            if arg[0] in self.classes.keys() and fur_arg in commands:
+            if arg[0] in self.classes.keys() and fur_arg[0] in self.commands:
                 line = fur_arg[0] + ' ' + arg[0] + ' ' + more_arg[0]
         return line
+
+    def default(self, line):
+        """ overrided default method """
+        self.precmd(line)
 
     def do_create(self, line):
         """
