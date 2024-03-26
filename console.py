@@ -24,6 +24,17 @@ class HBNBCommand(cmd.Cmd):
             "Place": Place,
             "Review": Review
             }
+    commands = ["create", "show", "destroy", "update", "all"]
+
+    def precmd(self, line):
+        """ Analyzes the whole command before executing """
+        if '.' in line and '(' in line and ')' in line:
+            arg = line.split('.')
+            fur_arg = arg[1].split('(')
+            more_arg = fur_arg[1].split(')')
+            if arg[0] in self.classes.keys() and fur_arg in commands:
+                line = fur_arg[0] + ' ' + arg[0] + ' ' + more_arg[0]
+        return line
 
     def do_create(self, line):
         """
@@ -39,6 +50,7 @@ class HBNBCommand(cmd.Cmd):
             my_model = self.classes[line]()
             print(my_model.id)
             my_model.save()
+
     def do_show(self, line):
         """
         prints the string representation of an instance
@@ -91,11 +103,15 @@ class HBNBCommand(cmd.Cmd):
         prints all string representation of all instances
         based or not on the class name
         """
+        tribe = line.split(' ')
         if line and line not in self.classes.keys():
             print("** class doesn't exist **")
         elif not line or line in self.classes.keys():
             all_objs = storage.all()
-            obj = [str(j) for i, j in all_objs.items()]
+            obj = []
+            for i, j in all_objs.items():
+                if tribe[0] == j.__class__.__name__:
+                    obj.append([j.__str__()])
             print(obj)
 
     def do_update(self, line):
@@ -140,6 +156,7 @@ class HBNBCommand(cmd.Cmd):
 
     def emptyline(self):
         pass
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
