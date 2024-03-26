@@ -29,3 +29,6 @@ class TestBaseModel(unittest.TestCase):
 
         self.assertEqual(my_dict['created_at'], my_dict1['created_at'])
         self.assertNotEqual(my_dict['updated_at'], my_dict1['updated_at'])
+
+if __name__ == "__main__":
+    unittest.main()
