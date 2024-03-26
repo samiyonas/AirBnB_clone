@@ -33,7 +33,11 @@ class HBNBCommand(cmd.Cmd):
             fur_arg = arg[1].split('(')
             more_arg = fur_arg[1].split(')')
             if arg[0] in self.classes.keys() and fur_arg[0] in self.commands:
-                line = fur_arg[0] + ' ' + arg[0] + ' ' + more_arg[0]
+                if more_arg[0] == "":
+                    line = fur_arg[0] + ' ' + arg[0] + ' ' + more_arg[0]
+                else:
+                    pun = more_arg[0].split(',')
+                    line = f"{fur_ar[0]} {arg[0]} {pun[0]} {pun[1]} {pun[3]}"
         return line
 
     def default(self, line):
