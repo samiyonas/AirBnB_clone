@@ -1,21 +1,31 @@
 #!/usr/bin/python3
-""" Unit test for my class BaseModel """
-from models.base_model import BaseModel
+""" This module handles miscellaneous unit testing """
+
+import os
+import models
 import unittest
+from models.base_model import BaseModel
 from datetime import datetime
 
 
 class TestBaseModel(unittest.TestCase):
-    """ Class that tests our BaseModel """
+    """
+    Class defines a series of test
+    for the Airbnb console
+    """
+
     base = BaseModel()
-    def test_attrs(self):
-        """ This test tests Attributes """
-        my_base_dict = self.base.to_dict()
 
-        self.assertEqual(self.base.id, my_base_dict['id'])
+    def test_BaseModelTest_1(self):
+        """ This tests Attributes """
+        self.base.save()
+        todict = self.base.to_dict()
 
-    def test_save(self):
-        """ This test tests save method """
+        self.assertEqual('BaseModel', todict['__class__'])
+        self.assertEqual(self.base.id, todict['id'])
+
+    def test_Save(self):
+        """ This tests save method """
         self.base.save()
 
         self.assertIsInstance(self.base.id, str)
@@ -23,12 +33,13 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(self.base.updated_at, datetime)
 
         my_dict = self.base.to_dict()
-        self.base.save()
 
+        self.base.save()
         my_dict1 = self.base.to_dict()
 
         self.assertEqual(my_dict['created_at'], my_dict1['created_at'])
         self.assertNotEqual(my_dict['updated_at'], my_dict1['updated_at'])
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
     unittest.main()
