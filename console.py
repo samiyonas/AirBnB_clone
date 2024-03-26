@@ -3,12 +3,17 @@
 import cmd
 from datetime import datetime
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
     """ Airbnb command line interpreter """
     prompt = "(hbnb) "
+    classes = {
+            "BaseModel": BaseModel,
+            "User": User
+            }
 
     def do_create(self, line):
         """
@@ -18,14 +23,12 @@ class HBNBCommand(cmd.Cmd):
         """
         if not line:
             print("** class name missing **")
-        elif line != "BaseModel":
+        elif line not in self.classes.keys():
             print("** class doesn't exist **")
-        if line == "BaseModel":
-            tok = line + "()"
-            my_model = eval(tok)
+        else:
+            my_model = self.classes[line]()
             print(my_model.id)
-            storage.save()
-
+            my_model.save()
     def do_show(self, line):
         """
         prints the string representation of an instance
@@ -34,7 +37,7 @@ class HBNBCommand(cmd.Cmd):
         args = line.split()
         if len(args) < 1:
             print("** class name missing **")
-        elif len(args) > 0 and args[0] != "BaseModel":
+        elif len(args) > 0 and args[0] not in self.classes.keys():
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
@@ -57,7 +60,7 @@ class HBNBCommand(cmd.Cmd):
         args = line.split()
         if len(args) < 1:
             print("** class name missing **")
-        elif len(args) > 0 and args[0] != "BaseModel":
+        elif len(args) > 0 and args[0] not in self.classes.keys():
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
@@ -78,9 +81,9 @@ class HBNBCommand(cmd.Cmd):
         prints all string representation of all instances
         based or not on the class name
         """
-        if line and line != "BaseModel":
+        if line and line not in self.classes.keys():
             print("** class doesn't exist **")
-        elif not line or line == "BaseModel":
+        elif not line or line in self.classes.keys():
             all_objs = storage.all()
             obj = [str(j) for i, j in all_objs.items()]
             print(obj)
@@ -95,7 +98,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 0:
             print("** class name missing **")
             return
-        elif args[0] != "BaseModel":
+        elif args[0] not in self.classes.keys():
             print("** class doesn't exist **")
             return
         elif len(args) == 1:
@@ -114,9 +117,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             if args[3].startswith('"') and args[3].endswith('"'):
                 args[3] = args[3][1:-1]
-            ojb = all_objs[k]
-            ojb.__dict__[args[2]] = args[3]
-            ojb.updated_at = datetime.now()
+            setattr(all_objs[k], args[2], args[3])
             storage.save()
 
     def do_quit(self, line):
