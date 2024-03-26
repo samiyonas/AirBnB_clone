@@ -33,11 +33,11 @@ class HBNBCommand(cmd.Cmd):
             fur_arg = arg[1].split('(')
             more_arg = fur_arg[1].split(')')
             if arg[0] in self.classes.keys() and fur_arg[0] in self.commands:
-                if more_arg[0] == "":
+                if len(more_arg) == 2:
                     line = fur_arg[0] + ' ' + arg[0] + ' ' + more_arg[0]
-                else:
+                elif len(more_arg) == 4:
                     pun = more_arg[0].split(',')
-                    line = f"{fur_ar[0]} {arg[0]} {pun[0]} {pun[1]} {pun[2]}"
+                    line = f"{fur_arg[0]} {arg[0]} {pun[0]} {pun[1]} {pun[2]}"
         return line
 
     def default(self, line):
@@ -140,6 +140,7 @@ class HBNBCommand(cmd.Cmd):
         Change is saved into JSON file.
         """
         args = line.split()
+        print(args)
         if len(args) == 0:
             print("** class name missing **")
             return
@@ -151,6 +152,7 @@ class HBNBCommand(cmd.Cmd):
             return
         else:
             all_objs = storage.all()
+            args[1] = args[1].strip('"')
             k = "{}.{}".format(args[0], args[1])
             if k not in all_objs.keys():
                 print("** no instance found **")
@@ -162,6 +164,8 @@ class HBNBCommand(cmd.Cmd):
         else:
             if args[3].startswith('"') and args[3].endswith('"'):
                 args[3] = args[3][1:-1]
+            if args[2].startswith('"') and args[2].endswith('"'):
+                args[2] = args[2][1:-1]
             setattr(all_objs[k], args[2], args[3])
             storage.save()
 
