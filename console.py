@@ -24,7 +24,7 @@ class HBNBCommand(cmd.Cmd):
             "Place": Place,
             "Review": Review
             }
-    commands = ["create", "show", "destroy", "update", "all"]
+    commands = ["create", "show", "destroy", "update", "all", "count"]
 
     def precmd(self, line):
         """ Analyzes the whole command before executing """
@@ -39,6 +39,17 @@ class HBNBCommand(cmd.Cmd):
     def default(self, line):
         """ overrided default method """
         self.precmd(line)
+
+    def do_count(self, line):
+        """ the number of instances """
+        count = 0
+        args = line.split(' ')
+        all_objs = storage.all()
+        for key in all_objs.keys():
+            cla = key.split('.')[0]
+            if cla == args[0]:
+                count += 1
+        print(count)
 
     def do_create(self, line):
         """
